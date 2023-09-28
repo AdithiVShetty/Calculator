@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+    <div class="calculator" id="calculator">
+        <form class="screen" id="screen" name="cal">
+            <input class="display" id="display" type="text" name="text" placeholder="0" readonly="">
+        </form>
+        <div class="buttons">     
+            <button class="btn sci" onclick="document.cal.text.value += 'sin('">sin</button>
+            <button class="btn sci" onclick="document.cal.text.value += 'cos('">cos</button>
+            <button class="btn sci" onclick="document.cal.text.value += 'tan('">tan</button>
+            <button class="btn sci" onclick="document.cal.text.value=Math.log10(document.cal.text.value)">log</button>
+            <button class="btn sci" onclick="document.cal.text.value=Math.log(document.cal.text.value)">ln</button>
+
+            <button class="btn sci sm" onclick="document.cal.text.value = Math.pow(document.cal.text.value, 2)">x²</button>
+            <button class="btn sci sm" onclick="document.cal.text.value += '^('">^</button>
+            <button class="btn sci sm" onclick="document.cal.text.value += 'sqrt('">&radic;</button>
+            <button class="btn sci" onclick="document.cal.text.value += '('">(</button>
+            <button class="btn sci" onclick="document.cal.text.value += ')'">)</button>
+                
+               
+            <button class="btn clear" onclick="document.cal.text.value = ''">C</button>
+            <button class="btn" onclick="document.cal.text.value += '%'">%</button>
+            <button class="btn" onclick="back()" value="back"><i class="fa-solid fa-delete-left"></i></button>
+            <button class="btn" onclick="document.cal.text.value += '/'"><i class="fa-solid fa-divide"></i></button>
+            
+            <button class="btn sci sm" onclick="document.cal.text.value += '!'">!</button>
+            <button class="btn num" onclick="document.cal.text.value += '7'">7</button>
+            <button class="btn num" onclick="document.cal.text.value += '8'">8</button>
+            <button class="btn num" onclick="document.cal.text.value += '9'">9</button>
+            <button class="btn" onclick="document.cal.text.value += '*'"><i class="fa-solid fa-xmark"></i></button>
+           
+            <button class="btn sci sm" onclick="document.cal.text.value += 'pi'">&#960;</button>
+            <button class="btn num" onclick="document.cal.text.value += '4'">4</button>
+            <button class="btn num" onclick="document.cal.text.value += '5'">5</button>
+            <button class="btn num" onclick="document.cal.text.value += '6'">6</button>
+            <button class="btn" onclick="document.cal.text.value += '-'"><i class="fa-solid fa-minus"></i></button>    
+                
+            <button class="btn sci sm" onclick="document.cal.text.value += 'e'">e</button>
+            <button class="btn num" onclick="document.cal.text.value += '1'">1</button>
+            <button class="btn num" onclick="document.cal.text.value += '2'">2</button>
+            <button class="btn num" onclick="document.cal.text.value += '3'">3</button>
+            <button class="btn" onclick="document.cal.text.value += '+'"><i class="fa-solid fa-plus"></i></button>
+
+            <button class="btn" onclick="document.cal.text.value += '00'">00</button>
+            <button class="btn num" onclick="document.cal.text.value += '0'">0</button>
+            <button class="btn num" onclick="document.cal.text.value += '.'">.</button>  
+            <button class="btn equal" onclick="calculate()"><i class="fa-solid fa-equals"></i></button>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.js" integrity="sha512-JLWfLWde2M173Tt7ju+tBz8OSzcfpCmkwK75AE2ErZYBWxN9143UWlIoHq8KrfBusmLu34d6SmHu3JwJHbufnw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let display = document.getElementById("display");
+        function back(){
+            var val = display.value;
+            display.value = val.substr(0, val.length - 1);
+        }
+        function calculate(){
+            let expression = display.value;
+            let result;
+            try{
+                result = math.evaluate(expression);
+                display.value = result;
+            }
+            catch(error){
+                display.value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>

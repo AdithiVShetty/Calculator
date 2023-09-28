@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swipe-Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'poppins', sans-serif;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color:rgb(53, 53, 136, 0.4);
+        }
+        .calculator{
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background-color:rgb(53, 53, 136);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); 
+            padding: 25px;
+            height: 470px;
+            width: 340px;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .display{
+            height: 100px;
+            width: 100%;
+            padding: 10px;
+            font-size: 22px;
+            border-radius: 10px;
+            border: none;
+            text-align: right;
+            font-weight: 500;
+            margin-bottom: 15px;
+            box-shadow: 4px 4px 6px 2px rgba(0, 0, 0, 0.3) inset;
+        }
+        .simple{
+            transition: 0.2s;
+            animation: appear 0.8s ease forwards;
+        }
+        @keyframes appear{
+            0%{
+                opacity: 0;
+            }
+            100%{
+                opacity: 1;
+            }
+        }
+        .more-icon{
+            font-size: 20px;
+            cursor: pointer;
+            position: absolute;
+            top: 60%;
+            right: 2%;
+            color: white;
+        }
+        .buttons{
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            grid-gap: 4%;
+            place-items: center;
+            align-items: center;
+            justify-content: center;
+            margin-top: 3%;
+        }
+        .btn{
+            border: none;
+            background-color: rgb(85, 85, 169);
+            justify-content: center;
+            align-items: center;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            font-size: 20px;
+            font-weight: 500;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5), 0 15px 25px rgba(0, 0, 0, 0.35);
+        }
+        .calculator .btn:active{
+            box-shadow: none;
+            width: 51px;
+            height: 51px;
+        }
+        .calculator .equal{
+            background-color: rgb(2, 2, 96);
+        }
+        .calculator .equal:active{
+            background-color: rgb(85, 85, 169);
+            color:  rgb(2, 2, 96);
+        }
+        .more{
+            position: relative;
+            display: none;
+            animation: slideRight 0.8s ease forwards;
+        }
+        @keyframes slideRight{
+            0%{
+                transform: translateX(300px);
+                opacity: 0;
+            }
+            100%{
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        .more-buttons{
+            position: absolute;
+            display: grid;
+            grid-template-columns: 20% 20% 20% 20%;
+            grid-gap: 5%;
+            padding: 20px 8px;
+            top: 30px;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            background-color: transparent;
+        }
+        .close{
+            position: absolute;
+            top: 20px;
+            right: 0;
+            z-index: 20;
+            font-size: 22px;
+            cursor: pointer;
+            color: white;
+        }
+        .sci{
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator" id="calculator">
+        <form class="screen" id="screen" name="cal">
+            <input class="display" id="display" type="text" name="text" placeholder="0" readonly="">
+        </form>
+        <div class="simple">
+            <span class="more-icon" onclick="slide()"><i class="fa-solid fa-angles-right"></i></span>
+            <div class="buttons">               
+                <button class="btn" onclick="document.cal.text.value = ''">C</button>
+                <button class="btn" onclick="document.cal.text.value += '%'">%</button>
+                <button class="btn" onclick="back()" value="back"><i class="fa-solid fa-delete-left"></i></button>
+                <button class="btn" onclick="document.cal.text.value += '/'"><i class="fa-solid fa-divide"></i></button>
+            
+                <button class="btn" onclick="document.cal.text.value += '7'">7</button>
+                <button class="btn" onclick="document.cal.text.value += '8'">8</button>
+                <button class="btn" onclick="document.cal.text.value += '9'">9</button>
+                <button class="btn" onclick="document.cal.text.value += '*'"><i class="fa-solid fa-xmark"></i></button>
+           
+                <button class="btn" onclick="document.cal.text.value += '4'">4</button>
+                <button class="btn" onclick="document.cal.text.value += '5'">5</button>
+                <button class="btn" onclick="document.cal.text.value += '6'">6</button>
+                <button class="btn" onclick="document.cal.text.value += '-'"><i class="fa-solid fa-minus"></i></button>
+          
+                <button class="btn" onclick="document.cal.text.value += '1'">1</button>
+                <button class="btn" onclick="document.cal.text.value += '2'">2</button>
+                <button class="btn" onclick="document.cal.text.value += '3'">3</button>
+                <button class="btn" onclick="document.cal.text.value += '+'"><i class="fa-solid fa-plus"></i></button>
+           
+                <button class="btn" onclick="document.cal.text.value += '00'">00</button>
+                <button class="btn" onclick="document.cal.text.value += '0'">0</button>
+                <button class="btn" onclick="document.cal.text.value += '.'">.</button>
+                <button class="btn equal" onclick="calculate()"><i class="fa-solid fa-equals"></i></button> 
+            </div>
+        </div>
+        <div class="more">
+            <span class="close" onclick="closeX()"><i class="fa-solid fa-circle-xmark"></i></span>
+            <div class="more-buttons">
+
+                <button class="btn sci" onclick="document.cal.text.value += 'sin('">sin</button>
+                <button class="btn sci" onclick="document.cal.text.value += 'cos('">cos</button>
+                <button class="btn sci" onclick="document.cal.text.value += 'tan('">tan</button>
+                <button class="btn sci" onclick="document.cal.text.value += 'pi'">&#960;</button>
+            
+                <button class="btn sci" onclick="document.cal.text.value += '('">(</button>
+                <button class="btn sci" onclick="document.cal.text.value += ')'">)</button>
+                <button class="btn sci" onclick="document.cal.text.value=Math.log10(document.cal.text.value)">log</button>
+                <button class="btn sci" onclick="document.cal.text.value=Math.log(document.cal.text.value)">ln</button>
+          
+                <button class="btn sci" onclick="document.cal.text.value += 'sqrt('">&radic;</button>
+                <button class="btn sci" onclick="document.cal.text.value += '^('">^</button>
+                <button class="btn sci" onclick="document.cal.text.value += 'e'">e</button>
+                <button class="btn sci" onclick="document.cal.text.value += '!'">!</button>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.11.0/math.js" integrity="sha512-JLWfLWde2M173Tt7ju+tBz8OSzcfpCmkwK75AE2ErZYBWxN9143UWlIoHq8KrfBusmLu34d6SmHu3JwJHbufnw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        let display = document.getElementById("display");
+        function back(){
+            var val = display.value;
+            display.value = val.substr(0, val.length - 1);
+        }
+        function calculate(){
+            let expression = display.value;
+            let result;
+            try{
+                result = math.evaluate(expression);
+                display.value = result;
+            }
+            catch(error){
+                display.value = "Error";
+            }
+        }
+
+        let slideMore = document.querySelector(".more");
+        let existBtn = document.querySelector(".simple");
+        let close = document.querySelector(".more-X");
+        let isShowMore = true;
+        function slide(){
+            if(isShowMore){
+               slideMore.style.display = 'block';
+                existBtn.style.display = 'none';
+                isShowMore = false;
+            }
+        }
+        function closeX(){
+            if(isShowMore === false){
+                slideMore.style.display = 'none';
+                existBtn.style.display = 'block';
+                isShowMore = true;
+            }
+        }
+    </script>
+</body>
+</html>
